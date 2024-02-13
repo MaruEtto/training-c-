@@ -1,6 +1,7 @@
 #include <iostream>
 //#include <string>
-#include <time.h>
+//#include <time.h>
+#include <cmath>
 using namespace std;
 
 // DZ14.4
@@ -41,39 +42,84 @@ using namespace std;
 
 //DZ16.5
 // Эта программа создает и наполняет массив
+//
+//int main()
+//{
+//	int Array[5][5];
+//	int i, j;
+//
+//	cout << "Array[5][5]:" << "\n";
+//
+//	for (i = 0; i < 5; ++i)
+//	{
+//		for (j = 0; j < 5; ++j)
+//		{
+//			Array[i][j] = i + j;
+//			cout << Array[i][j] << " ";
+//		}
+//		cout << "\n";
+//	}
+//	struct tm buf;
+//	time_t t = time(NULL);
+//	localtime_s(&buf, &t);
+//
+//	i = buf.tm_mday % 5;
+//
+//	cout << "Index = " << i << "\n";
+//
+//	int sum = Array[i][0];
+//
+//	for (j = 1; j < 5; j++)
+//	{
+//		sum += Array[i][j];
+//	}
+//
+//	cout << "Sum = " << sum;
+//
+//	return 0;
+//}
+
+//DZ17.5
+
+class Vector
+{
+private:
+
+	double x, y, z;
+
+public:
+
+	Vector() : x(0), y(0), z(0)
+	{}
+
+	Vector(double _x, double _y, double _z) : x(_x), y(_y), z(_z)
+	{}
+
+	void Show()
+	{
+		cout << "x = " << x << " y = " << y << " z = " << z << "\n";
+	}
+
+	void Module()
+	{
+		cout << "Module = " << sqrt(x * x + y * y + z * z) << "\n";
+	}
+};
 
 int main()
 {
-	int Array[5][5];
-	int i, j;
+	double x, y, z;
 
-	cout << "Array[5][5]:" << "\n";
+	cout << " Enter x: " << "\n";
+	cin >> x;
 
-	for (i = 0; i < 5; ++i)
-	{
-		for (j = 0; j < 5; ++j)
-		{
-			Array[i][j] = i + j;
-			cout << Array[i][j] << " ";
-		}
-		cout << "\n";
-	}
-	struct tm buf;
-	time_t t = time(NULL);
-	localtime_s(&buf, &t);
+	cout << " Enter y: " << "\n";
+	cin >> y;
 
-	i = buf.tm_mday % 5;
+	cout << " Enter z: " << "\n";
+	cin >> z;
 
-	cout << "Index = " << i << "\n";
-
-	int sum = Array[i][0];
-
-	for (j = 1; j < 5; j++)
-	{
-		sum += Array[i][j];
-	}
-
-	cout << "Sum = " << sum;
-
-	return 0;
+	Vector V(x, y, z);
+	V.Show();
+	V.Module();
 }
