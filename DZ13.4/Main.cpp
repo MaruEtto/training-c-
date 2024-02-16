@@ -80,46 +80,138 @@ using namespace std;
 //}
 
 //DZ17.5
+// Эта программа вычисляет модуль вектора.
 
-class Vector
+//class Vector
+//{
+//private:
+//
+//	double x, y, z;
+//
+//public:
+//
+//	Vector() : x(0), y(0), z(0)
+//	{}
+//
+//	Vector(double _x, double _y, double _z) : x(_x), y(_y), z(_z)
+//	{}
+//
+//	void Show()
+//	{
+//		cout << "x = " << x << " y = " << y << " z = " << z << "\n";
+//	}
+//
+//	void Module()
+//	{
+//		cout << "Module = " << sqrt(x * x + y * y + z * z) << "\n";
+//	}
+//};
+//
+//int main()
+//{
+//	double x, y, z;
+//
+//	cout << " Enter x: " << "\n";
+//	cin >> x;
+//
+//	cout << " Enter y: " << "\n";
+//	cin >> y;
+//
+//	cout << " Enter z: " << "\n";
+//	cin >> z;
+//
+//	Vector V(x, y, z);
+//	V.Show();
+//	V.Module();
+//}
+
+//DZ18.5
+// Эта программа создает динамический массив "Таблица баллов" с полями "Имя игрока" и "Количество очков"
+// и сортирует массив по убыванию количества очков, набранных игроками.
+
+class Member
 {
 private:
 
-	double x, y, z;
+	char Name;
+	int Points;
 
 public:
 
-	Vector() : x(0), y(0), z(0)
-	{}
-
-	Vector(double _x, double _y, double _z) : x(_x), y(_y), z(_z)
-	{}
-
-	void Show()
+	char GetName()
 	{
-		cout << "x = " << x << " y = " << y << " z = " << z << "\n";
+		return Name;
 	}
 
-	void Module()
+	int GetPoints()
 	{
-		cout << "Module = " << sqrt(x * x + y * y + z * z) << "\n";
+		return Points;
 	}
+
+	void SetName(char NewName)
+	{
+		Name = NewName;
+	}
+
+	void SetPoints(int NewPoints)
+	{
+		Points = NewPoints;
+	}
+	
 };
 
 int main()
 {
-	double x, y, z;
+	int NumberOfMembers;
 
-	cout << " Enter x: " << "\n";
-	cin >> x;
+	cout << "Enter the number of players: " << "\n";
+	cin >> NumberOfMembers;
 
-	cout << " Enter y: " << "\n";
-	cin >> y;
+	Member *PointsTable = new Member[NumberOfMembers];
 
-	cout << " Enter z: " << "\n";
-	cin >> z;
+	char NewName;
+	int NewPoints;
 
-	Vector V(x, y, z);
-	V.Show();
-	V.Module();
+	for (int i = 0; i < NumberOfMembers; i++) //Заполняет объекты массива PointsTable класса Member данными
+	{
+		cout << "Enter player name: " << "\n";
+		cin >> NewName;
+
+		cout << "Enter player points: " << "\n";
+		cin >> NewPoints;
+
+		PointsTable[i].SetName(NewName);
+		PointsTable[i].SetPoints(NewPoints);
+
+		//cout << "Player " << PointsTable[i].GetName() << " has " << PointsTable[i].GetPoints() << " points \n"; //Проверка записи значений в объект массива класса
+	}
+
+	cout << "Points table: \n";
+
+	for (int i = 0; i < NumberOfMembers; i++)
+	{
+		cout << "Player " << PointsTable[i].GetName() << " has " << PointsTable[i].GetPoints() << " points \n";
+	}
+	
+	//Сортировка методом всплывающего пузырька
+
+	int Box; //Вспомогательная переменная для сортировки
+
+	for (int i = 0; i < NumberOfMembers; i++)
+		for (int j = NumberOfMembers - 1; j >= i; j--)
+		{
+			if (PointsTable[j - 1].GetPoints() > PointsTable[j].GetPoints())
+			{
+				Box = PointsTable[j - 1].GetPoints();
+				PointsTable[j - 1].SetPoints(PointsTable[j].GetPoints());
+				PointsTable[j].SetPoints(Box);
+			}
+		}
+	cout << "Sorted array: \n";
+	for (int i = 0; i < NumberOfMembers; i++)
+	{
+		cout << "Player " << PointsTable[i].GetName() << " has " << PointsTable[i].GetPoints() << " points \n";
+	}
+	delete[] PointsTable;
+
 }
