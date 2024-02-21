@@ -42,7 +42,7 @@ using namespace std;
 
 //DZ16.5
 // Эта программа создает и наполняет массив
-//
+
 //int main()
 //{
 //	int Array[5][5];
@@ -127,91 +127,166 @@ using namespace std;
 
 //DZ18.5
 // Эта программа создает динамический массив "Таблица баллов" с полями "Имя игрока" и "Количество очков"
-// и сортирует массив по убыванию количества очков, набранных игроками.
+// и сортирует массив по возрастанию количества очков, набранных игроками.
 
-class Member
+//class Member
+//{
+//private:
+//
+//	char Name;
+//	int Points;
+//
+//public:
+//
+//	char GetName()
+//	{
+//		return Name;
+//	}
+//
+//	int GetPoints()
+//	{
+//		return Points;
+//	}
+//
+//	void SetName(char NewName)
+//	{
+//		Name = NewName;
+//	}
+//
+//	void SetPoints(int NewPoints)
+//	{
+//		Points = NewPoints;
+//	}
+//	
+//};
+//
+//int main()
+//{
+//	int NumberOfMembers;
+//	
+//	for (;;)
+//	{
+//		cout << "Enter the number of players: " << "\n";
+//		cin >> NumberOfMembers;
+//
+//		Member* PointsTable = new Member[NumberOfMembers];
+//
+//		char NewName;
+//		int NewPoints;
+//
+//		for (int i = 0; i < NumberOfMembers; i++) //Заполняет объекты массива PointsTable класса Member данными
+//		{
+//			cout << "Enter player name: " << "\n";
+//			cin >> NewName;
+//
+//			cout << "Enter player points: " << "\n";
+//			cin >> NewPoints;
+//
+//			PointsTable[i].SetName(NewName);
+//			PointsTable[i].SetPoints(NewPoints);
+//
+//			//cout << "Player " << PointsTable[i].GetName() << " has " << PointsTable[i].GetPoints() << " points \n"; //Проверка записи значений в объект массива класса
+//		}
+//
+//		cout << "Points table: \n";
+//
+//		for (int i = 0; i < NumberOfMembers; i++)
+//		{
+//			cout << "Player " << PointsTable[i].GetName() << " has " << PointsTable[i].GetPoints() << " points \n";
+//		}
+//
+//		//Сортировка методом всплывающего пузырька
+//
+//		int Box; //Вспомогательная переменная для сортировки
+//
+//		for (int i = 0; i < NumberOfMembers; i++)
+//			for (int j = NumberOfMembers - 1; j >= i; j--)
+//			{
+//				if (PointsTable[j - 1].GetPoints() > PointsTable[j].GetPoints())
+//				{
+//					Box = PointsTable[j - 1].GetPoints();
+//					PointsTable[j - 1].SetPoints(PointsTable[j].GetPoints());
+//					PointsTable[j].SetPoints(Box);
+//				}
+//			}
+//		cout << "Sorted array: \n";
+//		for (int i = 0; i < NumberOfMembers; i++)
+//		{
+//			cout << "Player " << PointsTable[i].GetName() << " has " << PointsTable[i].GetPoints() << " points \n";
+//		}
+//		delete[] PointsTable;
+//	}
+//}
+
+//DZ19.5
+// В этой программе при вызове метода Voice в массиве наследников класса Animal каждый объект вызывает свою перегруженную версию метода.
+
+class Animal
 {
-private:
-
-	char Name;
-	int Points;
-
 public:
 
-	char GetName()
-	{
-		return Name;
-	}
-
-	int GetPoints()
-	{
-		return Points;
-	}
-
-	void SetName(char NewName)
-	{
-		Name = NewName;
-	}
-
-	void SetPoints(int NewPoints)
-	{
-		Points = NewPoints;
-	}
+	Animal () {}
 	
+	virtual void Voice()
+	{
+		cout << "This 'Voice' in Animal class.\n";
+	}
+};
+
+class Dog : public Animal
+{
+public:
+	
+	Dog() {}
+
+	void Voice() override
+	{
+		cout << "Woof! This 'Voice' in Dog class.\n";
+	}
+};
+
+class Cat : public Animal
+{
+public:
+
+	Cat () {}
+
+	void Voice() override
+	{
+		cout << "Miao! This 'Voice' in Cat class.\n";
+	}
+};
+
+class Cow : public Animal
+{
+public:
+
+	Cow () {}
+
+	void Voice() override
+	{
+		cout << "Muuu! This 'Voice' in Cow class.\n";
+	}
 };
 
 int main()
 {
-	int NumberOfMembers;
+	Dog objDog;
+	Cat objCat;
+	Cow objCow;
+	Animal objAnimal;
 
-	cout << "Enter the number of players: " << "\n";
-	cin >> NumberOfMembers;
+	Animal* Array[3];
 
-	Member *PointsTable = new Member[NumberOfMembers];
+	Array[0] = &objDog;
+	Array[1] = &objCat;
+	Array[2] = &objCow;
 
-	char NewName;
-	int NewPoints;
+	objAnimal.Voice();
 
-	for (int i = 0; i < NumberOfMembers; i++) //Заполняет объекты массива PointsTable класса Member данными
+	for (int i = 0; i < 3; i++)
 	{
-		cout << "Enter player name: " << "\n";
-		cin >> NewName;
-
-		cout << "Enter player points: " << "\n";
-		cin >> NewPoints;
-
-		PointsTable[i].SetName(NewName);
-		PointsTable[i].SetPoints(NewPoints);
-
-		//cout << "Player " << PointsTable[i].GetName() << " has " << PointsTable[i].GetPoints() << " points \n"; //Проверка записи значений в объект массива класса
-	}
-
-	cout << "Points table: \n";
-
-	for (int i = 0; i < NumberOfMembers; i++)
-	{
-		cout << "Player " << PointsTable[i].GetName() << " has " << PointsTable[i].GetPoints() << " points \n";
+		Array[i]->Voice();
 	}
 	
-	//Сортировка методом всплывающего пузырька
-
-	int Box; //Вспомогательная переменная для сортировки
-
-	for (int i = 0; i < NumberOfMembers; i++)
-		for (int j = NumberOfMembers - 1; j >= i; j--)
-		{
-			if (PointsTable[j - 1].GetPoints() > PointsTable[j].GetPoints())
-			{
-				Box = PointsTable[j - 1].GetPoints();
-				PointsTable[j - 1].SetPoints(PointsTable[j].GetPoints());
-				PointsTable[j].SetPoints(Box);
-			}
-		}
-	cout << "Sorted array: \n";
-	for (int i = 0; i < NumberOfMembers; i++)
-	{
-		cout << "Player " << PointsTable[i].GetName() << " has " << PointsTable[i].GetPoints() << " points \n";
-	}
-	delete[] PointsTable;
-
 }
